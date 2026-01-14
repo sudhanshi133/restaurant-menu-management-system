@@ -30,7 +30,7 @@ public class MenuItem {
     @Column(nullable = false)
     private Category category;
 
-    @Enumeratedw(EnumType.STRING)
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Status status = Status.AVAILABLE;
 
