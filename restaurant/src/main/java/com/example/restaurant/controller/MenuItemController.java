@@ -37,20 +37,10 @@ public class MenuItemController {
             @RequestParam(required = false) Category category,
             @RequestParam(required = false) Status status,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "id,asc") String[] sort) {
-
-        Sort.Direction direction = sort.length > 1 && sort[1].equalsIgnoreCase("desc")
-            ? Sort.Direction.DESC
-            : Sort.Direction.ASC;
-        String sortBy = sort[0];
-
-        Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sortBy));
-
+            @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
         Page<MenuItemResponse> response = menuItemService.getMenuItems(
-            restaurantId, category, status, pageable
-        );
-
+            restaurantId, category, status, pageable);
         return ResponseEntity.ok(response);
     }
     
