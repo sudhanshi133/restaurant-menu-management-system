@@ -54,25 +54,21 @@ public class MenuItemService {
     public Page<MenuItemResponse> getMenuItems(
             Long restaurantId,
             Category category,
-            Status status,
-            Pageable pageable) {
+            Status status) {
         restaurantService.getRestaurantEntityById(restaurantId);
         
         Page<MenuItem> menuItems;
         if (category != null && status != null) {
             menuItems = menuItemRepository.findByRestaurantIdAndCategoryAndStatus(
-                restaurantId, category, status, pageable
-            );
+                restaurantId, category, status);
         } else if (category != null) {
             menuItems = menuItemRepository.findByRestaurantIdAndCategory(
-                restaurantId, category, pageable
-            );
+                restaurantId, category);
         } else if (status != null) {
             menuItems = menuItemRepository.findByRestaurantIdAndStatus(
-                restaurantId, status, pageable
-            );
+                restaurantId, status);
         } else {
-            menuItems = menuItemRepository.findByRestaurantId(restaurantId, pageable);
+            menuItems = menuItemRepository.findByRestaurantId(restaurantId);
         }
         
         return menuItems.map(this::mapToResponse);

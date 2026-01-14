@@ -16,30 +16,24 @@ import java.util.Optional;
 public interface MenuItemRepository extends JpaRepository<MenuItem, Long> {
 
     @Query("SELECT m FROM MenuItem m WHERE m.restaurant.id = :restaurantId AND m.deleted = false")
-    Page<MenuItem> findByRestaurantId(@Param("restaurantId") Long restaurantId, Pageable pageable);
+Page<MenuItem> findByRestaurantId(@Param("restaurantId") Long restaurantId);
 
 
     @Query("SELECT m FROM MenuItem m WHERE m.restaurant.id = :restaurantId AND m.category = :category AND m.deleted = false")
     Page<MenuItem> findByRestaurantIdAndCategory(
         @Param("restaurantId") Long restaurantId,
-        @Param("category") Category category,
-        Pageable pageable
-    );
+        @Param("category") Category category);
 
     @Query("SELECT m FROM MenuItem m WHERE m.restaurant.id = :restaurantId AND m.status = :status AND m.deleted = false")
     Page<MenuItem> findByRestaurantIdAndStatus(
         @Param("restaurantId") Long restaurantId,
-        @Param("status") Status status,
-        Pageable pageable
-    );
+        @Param("status") Status status);
 
     @Query("SELECT m FROM MenuItem m WHERE m.restaurant.id = :restaurantId AND m.category = :category AND m.status = :status AND m.deleted = false")
     Page<MenuItem> findByRestaurantIdAndCategoryAndStatus(
         @Param("restaurantId") Long restaurantId,
         @Param("category") Category category,
-        @Param("status") Status status,
-        Pageable pageable
-    );
+@Param("status") Status status);
 
     @Query("SELECT m FROM MenuItem m WHERE m.id = :id AND m.deleted = false")
     Optional<MenuItem> findByIdAndNotDeleted(@Param("id") Long id);
